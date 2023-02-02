@@ -8,7 +8,7 @@ type ProductProps = {
 
 async function getData() {
     try {
-        const response = await fetch('https://fakestoreapii.com/products?limit=10');
+        const response = await fetch('https://fakestoreapi.com/products?limit=10');
         return response.json();
     } catch (error) {
         console.log(error)
