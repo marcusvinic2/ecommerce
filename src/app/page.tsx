@@ -3,10 +3,8 @@ import React from 'react'
 import Image from 'next/image';
 
 async function getData() {
-
-  const response = await fetch(`https://fakestoreapi.com/products`);
+  const response = await fetch(`https://fakestoreapi.com/products`, { cache: 'no-store' });
   return response.json();
-
 }
 
 export default async function Home() {
