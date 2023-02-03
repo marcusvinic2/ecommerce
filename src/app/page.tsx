@@ -1,8 +1,35 @@
+import Link from 'next/link';
 import React from 'react'
-import { Inter } from '@next/font/google'
+import Image from 'next/image';
 
-export default function Home() {
+async function getData() {
+
+  const response = await fetch(`https://fakestoreapi.com/products`);
+  return response.json();
+
+}
+
+export default async function Home() {
+
+  const response = await getData();
+  console.log(response)
+
   return (
-    <div>home page</div>
+    <div>
+      {
+        response !== null ? (
+          response.map((response: any, index: number) =>
+            <div>
+              <Link href={`produto/${response.id}`}>
+                <h4>{response.title}</h4>
+                <div>
+                  <Image src={response.image} width={300} height={300} alt="product" />
+                </div>
+              </Link>
+            </div>
+          )
+        ) : null
+      }
+    </div>
   )
 }
