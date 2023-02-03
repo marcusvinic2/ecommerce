@@ -1,22 +1,27 @@
-import React from "react";
 
-async function getData(product: number) {
-    const response = await fetch(`https://fakestoreapi.com/products/${product}`, { next: { revalidate: 10 } });
-    return {
-        response
-    }
-    
+import Link from "next/link";
+
+interface WorldTimeAPI {
+  title: string
+  description: string;
 }
 
-export default async function Teste({ params }: any) {
-
-    const response = await getData(params.produto);
-
-    return (
-        <>
-            <div>
-                teste
-            </div>
-        </>
-    )
+async function getTime(product : any) {
+  const response = await fetch(`https://fakestoreapi.com/products/${product}`, { next: { revalidate: 500 } });
+  const time: WorldTimeAPI = await response.json();
+  return time;
 }
+
+export default async function DataPage({ params } : any ) {
+  const time = await getTime(params.produto);
+
+  return (
+    <>
+      <h1>Titile: {time.title}</h1>
+      <h2>Description: {time.description}</h2>
+      <Link href="/">Home</Link>
+    </>
+  );
+}
+
+export const revalidate = 0;
